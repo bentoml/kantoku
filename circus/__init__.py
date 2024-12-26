@@ -4,8 +4,7 @@ import os
 import warnings
 
 
-version_info = (0, 18, 1)
-__version__ = ".".join(map(str, version_info))
+__version__ = "0.18.1"
 
 # This config call is done to avoid any
 #     "no handlers could be found for logger"
