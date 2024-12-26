@@ -40,7 +40,7 @@ Documentation = 'https://circus.readthedocs.io'
 [project.optional-dependencies]
 test = [
     'coverage',
-    'flake8==2.1.0',
+    'flake8',
     'gevent',
     'mock',
     'pytest',
@@ -78,7 +78,7 @@ testpaths = [
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py39,py310,py311,py312,py313,pypy39,flake8,docs
+envlist = py39,py310,py311,py312,py313,pypy39,pypy310,flake8,docs
 
 [testenv]
 passenv = PWD
@@ -109,6 +109,6 @@ commands = make -C docs html
 
 
 [testenv:flake8]
-deps = flake8==2.1.0
+deps = flake8
 commands = flake8 circus
 """
