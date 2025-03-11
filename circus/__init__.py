@@ -3,8 +3,7 @@ import logging
 import os
 import warnings
 
-
-__version__ = "0.18.1"
+__version__ = "0.18.2"
 
 # This config call is done to avoid any
 #     "no handlers could be found for logger"
@@ -105,9 +104,12 @@ class ArbiterHandler(object):
         - **check_delay** -- the delay between two controller points
         (default: 1 s)
         """
-        from circus.util import (DEFAULT_ENDPOINT_DEALER, DEFAULT_ENDPOINT_SUB,
-                                 DEFAULT_ENDPOINT_MULTICAST,
-                                 DEFAULT_ENDPOINT_STATS)
+        from circus.util import (
+            DEFAULT_ENDPOINT_DEALER,
+            DEFAULT_ENDPOINT_MULTICAST,
+            DEFAULT_ENDPOINT_STATS,
+            DEFAULT_ENDPOINT_SUB,
+        )
         if controller is None:
             controller = DEFAULT_ENDPOINT_DEALER
         if pubsub_endpoint is None:
