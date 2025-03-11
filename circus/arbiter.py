@@ -658,6 +658,12 @@ class Arbiter(object):
         if len(list_to_yield) > 0:
             yield list_to_yield
 
+        for watcher in self.iter_watchers():
+            if len(watcher) == 0:
+                # When the watcher has no active process, the arbiter needs to quit.
+                yield self.__stop()
+                return
+
         if need_on_demand:
             sockets = [x.fileno() for x in self.sockets.values()]
             rlist, wlist, xlist = select.select(sockets, [], [], 0)
