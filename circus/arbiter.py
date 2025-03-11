@@ -104,6 +104,7 @@ class Arbiter(object):
         self.umask = umask
         self.endpoint_owner = endpoint_owner
         self._running = False
+        self._exception = None
         try:
             # getfqdn appears to fail in Python3.3 in the unittest
             # framework so fall back to gethostname
@@ -551,6 +552,9 @@ class Arbiter(object):
             if not self._provided_loop:
                 # If an event loop is not provided, do some cleaning
                 self.stop_controller_and_close_sockets()
+                if self._exception is not None:
+                    exc, self._exception = self._exception, None
+                    raise exc
         raise gen.Return(self._restarting)
 
     def stop_controller_and_close_sockets(self):
@@ -662,6 +666,7 @@ class Arbiter(object):
             if len(watcher) == 0:
                 # When the watcher has no active process, the arbiter needs to quit.
                 yield self.__stop()
+                self._exception = RuntimeError("No active process found for watcher.")
                 return
 
         if need_on_demand:
