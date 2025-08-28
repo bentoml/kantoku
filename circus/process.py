@@ -209,6 +209,9 @@ class Process(object):
         if self.uid is not None and self.gid is None:
             self.gid = get_default_gid(self.uid)
 
+        # Make CIRCUS.WID accessible in env vars
+        self.env["CIRCUS.WID"] = str(self.wid)
+
         if IS_WINDOWS:
             if not self.use_fds and (self.pipe_stderr or self.pipe_stdout):
                 raise ValueError("On Windows, you can't close the fds if "
